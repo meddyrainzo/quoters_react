@@ -14,8 +14,8 @@ describe('Testing the quote component', () => {
         author={firstQuote.author}
         postedBy={firstQuote.postedBy}
         postedOn={firstQuote.postedOn}
-        numberOfComments={firstQuote.numberOfComments}
-        numberOfLikes={firstQuote.numberOfLikes}
+        comments={firstQuote.numberOfComments}
+        likesCount={firstQuote.numberOfLikes}
         likedByYou={firstQuote.likedByYou}
       />
     );

@@ -1,32 +1,48 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getQuotesAction } from '../../actions/quoteActions';
+import { SingleQuote } from '../../models/singleQuote';
 
-import sampleQuotes from '../../fake-server/sampleQuotes';
-import { SingleQuote } from './models/singleQuote';
+import { Rootstate } from '../../reducers/reducer';
 import Quote from './Quote';
 import './QuoteList.scss';
 
 const QuoteList: FC = () => {
-  const [quotes, setQuotes] = useState(Array<SingleQuote>());
+  const quotes = useSelector((state: Rootstate) => state.quotes.quotes);
+  const dispatch = useDispatch();
   useEffect(() => {
-    setQuotes(sampleQuotes);
-  }, []);
+    console.log('In the quotes list');
+    dispatch(getQuotesAction(0, 2));
+  }, [dispatch]);
 
   const createQuotes = () =>
-    quotes.map((quote) => (
-      <Quote
-        key={quote.id}
-        id={quote.id}
-        quote={quote.quote}
-        author={quote.author}
-        postedBy={quote.postedBy}
-        postedOn={quote.postedOn}
-        numberOfComments={quote.numberOfComments}
-        numberOfLikes={quote.numberOfLikes}
-        likedByYou={quote.likedByYou}
-      />
-    ));
+    quotes.map((q: SingleQuote) => {
+      const {
+        id,
+        quote,
+        author,
+        postedBy,
+        postedOn,
+        comments,
+        likesCount,
+        likedByYou,
+      } = q;
+      return (
+        <Quote
+          key={id}
+          id={id}
+          quote={quote}
+          author={author}
+          postedBy={postedBy}
+          postedOn={postedOn}
+          comments={comments}
+          likesCount={likesCount}
+          likedByYou={likedByYou}
+        />
+      );
+    });
 
-  return <div className='quote-list'>{createQuotes()}</div>;
+  return <div className='quote-list'>{quotes && createQuotes()}</div>;
 };
 
 export default QuoteList;

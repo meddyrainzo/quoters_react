@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { faCommentAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { nameAbbreviator } from '../../utils/nameInitialsCreator';
-import { SingleQuote } from './models/singleQuote';
+import { SingleQuote } from '../../models/singleQuote';
 import './Quote.scss';
 import ProfileImage from '../profile/ProfileImage';
 
@@ -12,8 +12,8 @@ const Quote: FC<SingleQuote> = (singleQuote: SingleQuote) => {
     postedOn,
     quote,
     author,
-    numberOfComments,
-    numberOfLikes,
+    comments: numberOfComments,
+    likesCount: numberOfLikes,
   } = singleQuote;
 
   const initials = nameAbbreviator(firstname, lastname);

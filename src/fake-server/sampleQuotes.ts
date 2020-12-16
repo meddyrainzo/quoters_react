@@ -6,7 +6,7 @@ const sampleQuotes = [
         industry. Lorem Ipsum has been the industry's standard dummy text ever \
         since the 1500s",
     author: 'Arthur',
-    postedBy: { firstname: 'First', lastname: 'Last' },
+    postedBy: { userId: '12346453', firstname: 'First', lastname: 'Last' },
     postedOn: '20th Dec 2020',
     numberOfComments: 10,
     numberOfLikes: 15,
@@ -19,7 +19,7 @@ const sampleQuotes = [
          It has roots in a piece of classical Latin literature from 45 BC, \
          making it over 2000 years old',
     author: 'Authur',
-    postedBy: { firstname: 'First', lastname: 'Last' },
+    postedBy: { userId: '12346453', firstname: 'First', lastname: 'Last' },
     postedOn: '20th Dec 2020',
     numberOfComments: 10,
     numberOfLikes: 15,
@@ -33,7 +33,7 @@ const sampleQuotes = [
          It has roots in a piece of classical Latin literature from 45 BC, \
          making it over 2000 years old',
     author: 'Authur',
-    postedBy: { firstname: 'First', lastname: 'Last' },
+    postedBy: { userId: '12346453', firstname: 'First', lastname: 'Last' },
     postedOn: '20th Dec 2020',
     numberOfComments: 10,
     numberOfLikes: 15,
@@ -46,7 +46,7 @@ const sampleQuotes = [
          It has roots in a piece of classical Latin literature from 45 BC, \
          making it over 2000 years old',
     author: 'Authur',
-    postedBy: { firstname: 'First', lastname: 'Last' },
+    postedBy: { userId: '12346453', firstname: 'First', lastname: 'Last' },
     postedOn: '20th Dec 2020',
     numberOfComments: 10,
     numberOfLikes: 15,
@@ -59,7 +59,7 @@ const sampleQuotes = [
          It has roots in a piece of classical Latin literature from 45 BC, \
          making it over 2000 years old',
     author: 'Authur',
-    postedBy: { firstname: 'First', lastname: 'Last' },
+    postedBy: { userId: '12346453', firstname: 'First', lastname: 'Last' },
     postedOn: '20th Dec 2020',
     numberOfComments: 10,
     numberOfLikes: 15,
@@ -72,7 +72,7 @@ const sampleQuotes = [
          It has roots in a piece of classical Latin literature from 45 BC, \
          making it over 2000 years old',
     author: 'Authur',
-    postedBy: { firstname: 'First', lastname: 'Last' },
+    postedBy: { userId: '12346453', firstname: 'First', lastname: 'Last' },
     postedOn: '20th Dec 2020',
     numberOfComments: 10,
     numberOfLikes: 15,
