@@ -1,0 +1,87 @@
+@import '../../base';
+
+.quote-container {
+  color: $light;
+  background-color: $dark;
+  border-radius: 8px;
+  width: 34vw;
+  height: 30vh;
+  margin: 1em;
+  display: flex;
+  flex-direction: column;
+
+  &-header {
+    min-height: 5vh;
+    width: 100%;
+    border-bottom: 1px solid $background-dark;
+    display: flex;
+    padding-top: 0.6em;
+    padding-bottom: 0.4em;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &-footer {
+    min-height: 3vh;
+    width: 100%;
+    border-top: 1px solid $background-dark;
+    display: flex;
+    padding-bottom: 0.6em;
+    padding-top: 0.4em;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.user-profile-wrapper {
+  display: flex;
+}
+
+.profile-picture {
+  border-radius: 50%;
+  font-weight: 600;
+  height: 5vh;
+  width: 5vh;
+  margin: 0 0.4em 0 1em;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-name {
+  align-self: center;
+}
+
+.posted-on {
+  font-size: 0.8rem;
+  margin-right: 2em;
+}
+
+.quote-body-container {
+  display: flex;
+  flex: 1;
+  padding: 1em;
+  font-size: 0.8rem;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .author {
+    align-self: flex-end;
+    margin-right: 1em;
+    font-style: italic;
+    font-weight: 600;
+  }
+}
+
+.quote-container-footer {
+  display: flex;
+  justify-content: flex-end;
+
+  .footer-item {
+    margin-right: 1em;
+    font-size: 0.8rem;
+    color: $light;
+    padding-inline-end: 1em;
+  }
+}
