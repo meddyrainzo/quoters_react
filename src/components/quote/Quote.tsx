@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
 import { faCommentAlt, faHeart } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { nameAbbreviator } from '../../utils/nameAbbreviator';
+import { nameAbbreviator } from '../../utils/nameInitialsCreator';
 import { SingleQuote } from './models/singleQuote';
 import './Quote.scss';
+import ProfileImage from '../profile/ProfileImage';
 
 const Quote: FC<SingleQuote> = (singleQuote: SingleQuote) => {
   const { firstname, lastname } = singleQuote.postedBy;
@@ -15,13 +16,13 @@ const Quote: FC<SingleQuote> = (singleQuote: SingleQuote) => {
     numberOfLikes,
   } = singleQuote;
 
+  const initials = nameAbbreviator(firstname, lastname);
+
   return (
     <div className='quote-container'>
       <div className='quote-container-header'>
         <div className='user-profile-wrapper'>
-          <div className='profile-picture'>
-            {nameAbbreviator(firstname, lastname)}
-          </div>
+          <ProfileImage initials={initials} />
           <div className='user-name'>{`${firstname} ${lastname}`}</div>
         </div>
         <div className='posted-on'>{postedOn}</div>

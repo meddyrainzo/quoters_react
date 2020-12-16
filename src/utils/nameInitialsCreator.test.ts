@@ -1,4 +1,4 @@
-import { nameAbbreviator } from './nameAbbreviator';
+import { nameAbbreviator } from './nameInitialsCreator';
 
 describe('Testing the name abbreviator', () => {
   test('should return an empty string if there is no firstname and lastname', () => {

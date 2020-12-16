@@ -1,0 +1,54 @@
+@import '../../base';
+
+.header-container {
+  min-height: 10vh;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: $dark;
+  align-items: center;
+  opacity: 90%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-family: 'Brush Script MT', 'Brush Script Std', cursive;
+  font-size: 1.5em;
+  color: white;
+  margin-left: 5vw;
+}
+
+.header-menu {
+  display: flex;
+  align-items: center;
+  margin-right: 5vw;
+}
+
+.add-quote-button {
+  background-color: #389c0a;
+  border: 1px solid #389c0a;
+  text-transform: uppercase;
+  border-radius: 4px;
+  color: $light;
+  padding: 1em;
+  cursor: pointer;
+  &:hover {
+    opacity: 80%;
+  }
+}
+
+.menu-text {
+  color: $light;
+  cursor: pointer;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: small;
+  margin-left: 0.8vw;
+}
+
+@media (max-width: 375px) {
+  .add-quote-button {
+    padding: 0.8em;
+  }
+}

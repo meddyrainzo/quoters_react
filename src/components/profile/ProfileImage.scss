@@ -1,0 +1,15 @@
+@import '../../base';
+
+.profile-picture {
+  border-radius: 50%;
+  font-weight: 600;
+  color: $light;
+  height: 5vh;
+  width: 5vh;
+  margin: 0 0.4em 0 1em;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
