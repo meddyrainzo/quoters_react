@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 
+import { history } from '../history';
 import store from '../store';
 import './App.scss';
 import Header from './header/Header';
@@ -13,11 +14,12 @@ const App: FC = () => {
   return (
     <Provider store={store}>
       <>
-        <Router>
+        <Router history={history}>
           <Header />
           <div className='content'>
-            <Route path='/' component={Login} />
-            <Route path='/quotes' component={QuoteList} />
+            <Route path='/' exact component={QuoteList} />
+            <Route path='/register' component={Register} />
+            <Route path='/login' component={Login} />
           </div>
         </Router>
       </>

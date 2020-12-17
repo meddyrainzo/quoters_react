@@ -11,7 +11,6 @@ const QuoteList: FC = () => {
   const quotes = useSelector((state: Rootstate) => state.quotes.quotes);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log('In the quotes list');
     dispatch(getQuotesAction(0, 2));
   }, [dispatch]);
 

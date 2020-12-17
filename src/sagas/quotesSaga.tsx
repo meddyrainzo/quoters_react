@@ -11,7 +11,6 @@ function* getQuotes(currentPage?: number, resultsPerPage?: number) {
     const quotes = yield call(service.getQuotes, currentPage, resultsPerPage);
     yield put({ type: GET_QUOTES_SUCCESS, payload: quotes });
   } catch (error) {
-    console.log(`There is an error for some reason:: ${error}`);
     yield put({ type: GET_QUOTES_FAILURE, payload: error });
   }
 }
