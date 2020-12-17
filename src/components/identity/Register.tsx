@@ -2,7 +2,7 @@ import React, { ChangeEvent, FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerAction } from '../../actions/registerActions';
 
-import { RegisterRequest } from '../../models/regiterRequest';
+import { RegisterRequest } from '../../models/requests/regiterRequest';
 
 import './Identity.scss';
 

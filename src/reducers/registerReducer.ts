@@ -15,10 +15,8 @@ export const registerReducer = (
 ): RegisterState => {
   switch (action.type) {
     case REGISTRATION_FAILURE:
-      console.log('FAILED TO REGISTER');
       return { ...state, error: action.error };
     case REGISTRATION_SUCCESSFUL:
-      console.log('REGISTRATION DONE SUCCESSFULLY');
       return state;
     default:
       return state;

@@ -3,10 +3,12 @@ import {
   GET_QUOTES_SUCCESS,
   QuoteActionTypes,
 } from '../actions/quoteActions';
+import { ErrorResult } from '../models/errorResult';
 import { SingleQuote } from '../models/singleQuote';
 
 export type QuotesState = {
   quotes: SingleQuote[];
+  error?: ErrorResult;
 };
 
 const initialState: QuotesState = { quotes: [] };
@@ -14,12 +16,12 @@ const initialState: QuotesState = { quotes: [] };
 export const quotesReducer = (
   state = initialState,
   action: QuoteActionTypes
-): QuotesState | any => {
+): QuotesState => {
   switch (action.type) {
     case GET_QUOTES_SUCCESS:
       return { ...state, quotes: [...state.quotes, ...action.payload.quotes] };
     case GET_QUOTES_FAILURE:
-      return { ...action.payload };
+      return { ...state, error: action.payload };
     default:
       return state;
   }

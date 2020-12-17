@@ -1,3 +1,4 @@
+import { ErrorResult } from '../models/errorResult';
 import { SingleQuote } from '../models/singleQuote';
 
 export const GET_QUOTES = 'GET_QUOTES';
@@ -12,6 +13,19 @@ type GetQuotesAction = {
   };
 };
 
+type GetQuotesSuccess = {
+  type: typeof GET_QUOTES_SUCCESS;
+  payload: {
+    quotes: SingleQuote[];
+  };
+};
+
+type GetQuotesFailue = {
+  type: typeof GET_QUOTES_FAILURE;
+  payload: ErrorResult;
+};
+
+// Action creators
 export const getQuotesAction = (
   currentPage?: number,
   resultsPerPage?: number
@@ -25,16 +39,14 @@ export const getQuotesAction = (
   };
 };
 
-type GetQuotesSuccess = {
-  type: typeof GET_QUOTES_SUCCESS;
-  payload: {
-    quotes: SingleQuote[];
-  };
+export const getQuotesSuccessful = (
+  quotes: SingleQuote[]
+): GetQuotesSuccess => {
+  return { type: GET_QUOTES_SUCCESS, payload: { quotes } };
 };
 
-type GetQuotesFailue = {
-  type: typeof GET_QUOTES_FAILURE;
-  payload: any;
+export const getQuotesFailure = (error: ErrorResult): GetQuotesFailue => {
+  return { type: GET_QUOTES_FAILURE, payload: error };
 };
 
 export type QuoteActionTypes = GetQuotesSuccess | GetQuotesFailue;

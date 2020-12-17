@@ -1,5 +1,5 @@
 import { ErrorResult } from '../models/errorResult';
-import { RegisterRequest } from '../models/regiterRequest';
+import { RegisterRequest } from '../models/requests/regiterRequest';
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTRATION_SUCCESSFUL = 'REGISTRATION_SUCCESSFUL';
@@ -24,7 +24,6 @@ type RegistrationFailed = {
 export const registerAction = (
   request: RegisterRequest
 ): RegisterUserAction => {
-  console.log('Action dispatched');
   return { type: REGISTER_REQUEST, payload: request };
 };
 
