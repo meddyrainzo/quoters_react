@@ -26,12 +26,4 @@ export const loginUserAction = (request: LoginRequest): LoginUserAction => {
   return { type: LOGIN_REQUEST, payload: request };
 };
 
-export const loginSuccessful = (response: User): LoginSuccessful => {
-  return { type: LOGIN_SUCCESSFUL, payload: response };
-};
-
-export const loginFailure = (error: ErrorResult): LoginFailure => {
-  return { type: LOGIN_FAILURE, payload: error };
-};
-
 export type LoginAction = LoginSuccessful | LoginFailure;

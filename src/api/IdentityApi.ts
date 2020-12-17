@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { response } from 'msw/lib/types';
 import qs from 'qs';
 import { Token } from '../aliases/token';
 import { ErrorResult } from '../models/errorResult';

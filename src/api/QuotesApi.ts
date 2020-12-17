@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { ErrorResult } from '../models/errorResult';
 import { SingleQuote } from '../models/singleQuote';
 
 const client = axios.create({
@@ -8,7 +9,7 @@ const client = axios.create({
 export const getQuotes = async (
   currentPage = 0,
   resultsPerPage = 10
-): Promise<SingleQuote[]> => {
+): Promise<SingleQuote[] | ErrorResult> => {
   try {
     const response = await client({
       method: 'GET',
@@ -16,6 +17,6 @@ export const getQuotes = async (
     });
     return response.data;
   } catch (err) {
-    throw err;
+    throw err.response.data;
   }
 };

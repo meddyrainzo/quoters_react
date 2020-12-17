@@ -1,8 +1,8 @@
-import { call, put, fork, take } from 'redux-saga/effects';
+import { call, put, take } from 'redux-saga/effects';
 import {
   REGISTER_REQUEST,
-  registrationFailure,
-  registrationSuccessful,
+  REGISTRATION_FAILURE,
+  REGISTRATION_SUCCESSFUL,
 } from '../actions/registerActions';
 import { RegisterRequest } from '../models/requests/regiterRequest';
 import { registerUser } from '../api/IdentityApi';
@@ -10,9 +10,10 @@ import { registerUser } from '../api/IdentityApi';
 function* registrationWorker(request: RegisterRequest) {
   const { errorReason, status } = yield call(registerUser, request);
   if (errorReason) {
-    yield put(registrationFailure({ statusCode: status, errorReason }));
+    const error = { statusCode: status, errorReason };
+    yield put({ type: REGISTRATION_FAILURE, error });
   } else {
-    yield put(registrationSuccessful());
+    yield put({ type: REGISTRATION_SUCCESSFUL });
   }
 }
 

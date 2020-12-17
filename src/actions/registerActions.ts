@@ -27,12 +27,4 @@ export const registerAction = (
   return { type: REGISTER_REQUEST, payload: request };
 };
 
-export const registrationSuccessful = () => {
-  return { type: REGISTRATION_SUCCESSFUL };
-};
-
-export const registrationFailure = (err: ErrorResult) => {
-  return { type: REGISTRATION_FAILURE, err };
-};
-
 export type RegisterAction = RegistrationSuccessful | RegistrationFailed;
