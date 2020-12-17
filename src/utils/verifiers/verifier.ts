@@ -14,7 +14,7 @@ export const wordValidator = (
 
 export const emailValidator = (email: string): string => {
   // Very basic regex for email
-  let regex: RegExp = /[A-Za-z0-9.-_]+@[A-Za-z0-9]+\.\w{2,3}(\.\w{2,3})/;
+  let regex: RegExp = /[A-Za-z0-9.-_]+@[A-Za-z0-9]+\.\w{2,3}(\.\w{2,3})?/;
   if (!regex.test(email)) {
     return 'Invalid email';
   }
