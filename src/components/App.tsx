@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import store from '../store';
 import './App.scss';
@@ -9,12 +10,14 @@ import QuoteList from './quote/QuoteList';
 const App: FC = () => {
   return (
     <Provider store={store}>
-      <div>
-        <Header />
-        <div className='content'>
-          <QuoteList />
-        </div>
-      </div>
+      <>
+        <Router>
+          <Header />
+          <div className='content'>
+            <Route path='/' component={QuoteList} />
+          </div>
+        </Router>
+      </>
     </Provider>
   );
 };
