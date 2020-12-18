@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, ReactNode, useState } from 'react';
 import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -8,14 +8,15 @@ import './Alert.scss';
  * NOTE: This component has the limitation that it takes every comma as a sentence separator
  * So a sentence like "Hello, world" will be interpreted as 2 sentences. "Hello" and "World"
  */
-type AlertProps = {
+type AlertProps = ReactNode & {
   message: string;
   backgroundColor?: string;
   foregroundColor?: string;
+  close: () => void;
 };
 
-const Alert: FC<AlertProps> = ({ message }) => {
-  const [isVisible, setVisible] = useState(message.length > 0);
+const Alert: FC<AlertProps> = ({ message, close }) => {
+  const [isVisible] = useState(message.length > 0);
 
   const buildAlert = () => {
     const messages = message.split(',');
@@ -24,10 +25,9 @@ const Alert: FC<AlertProps> = ({ message }) => {
     return html;
   };
 
-  const closeIcon = () => {
-    console.log('Closed the alert dialog');
-    setVisible(false);
-  };
+  // const closeIcon = () => {
+  //   setVisible(false);
+  // };
 
   return (
     <>
@@ -36,7 +36,7 @@ const Alert: FC<AlertProps> = ({ message }) => {
           <FontAwesomeIcon
             icon={faTimesCircle}
             className='close-icon'
-            onClick={closeIcon}
+            onClick={close}
           />
           {buildAlert()}
         </div>

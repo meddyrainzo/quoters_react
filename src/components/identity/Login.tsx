@@ -2,7 +2,10 @@ import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { loginUserAction } from '../../actions/authenticationAction';
+import {
+  clearLoginErrors,
+  loginUserAction,
+} from '../../actions/authenticationAction';
 import { LoginRequest } from '../../models/requests/loginRequest';
 
 import './Identity.scss';
@@ -22,16 +25,14 @@ const Login: FC = () => {
   const dispatch = useDispatch();
   const { email, password } = request;
 
-  const buildErrorAlert = () => {
-    const errorList = error?.errorReason.split(',');
-
-    const html = errorList?.map((err, index) => <span key={index}>{err}</span>);
-    return html;
-  };
-
   return (
     <div className='form-page'>
-      {error?.errorReason && <Alert message={error.errorReason} />}
+      {error?.errorReason && (
+        <Alert
+          message={error.errorReason}
+          close={() => dispatch(clearLoginErrors())}
+        />
+      )}
 
       <div className='identity-title'>Sign in</div>
       <Formik
@@ -44,7 +45,7 @@ const Login: FC = () => {
         })}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           dispatch(loginUserAction(values));
-          setSubmitting(false);
+          setSubmitting(true);
           resetForm();
         }}
       >

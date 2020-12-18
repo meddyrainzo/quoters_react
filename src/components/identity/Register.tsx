@@ -1,6 +1,9 @@
 import React, { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerAction } from '../../actions/registerActions';
+import {
+  clearRegistrationErrors,
+  registerAction,
+} from '../../actions/registerActions';
 
 import { RegisterRequest } from '../../models/requests/regiterRequest';
 import { Formik, Form } from 'formik';
@@ -10,6 +13,7 @@ import { FormErrorMessages } from '../form/formErrorMessages';
 import TextField from '../form/TextField';
 import { Link } from 'react-router-dom';
 import { Rootstate } from '../../reducers/reducer';
+import Alert from '../alert/Alert';
 
 const request: RegisterRequest = {
   firstname: '',
@@ -24,16 +28,13 @@ const Register: FC = () => {
 
   const { firstname, lastname, email, password } = request;
 
-  const buildErrorAlert = () => {
-    const errorList = error?.errorReason.split(',');
-    const html = errorList?.map((err, index) => <span key={index}>{err}</span>);
-    return html;
-  };
-
   return (
     <div className='form-page'>
       {error?.errorReason && (
-        <div className='identity-error-alert'>{buildErrorAlert()}</div>
+        <Alert
+          message={error.errorReason}
+          close={() => dispatch(clearRegistrationErrors())}
+        />
       )}
       <div className='identity-title'>Create Account</div>
       <Formik
@@ -55,9 +56,10 @@ const Register: FC = () => {
             .max(50, FormErrorMessages.PASSWORD_TOO_LONG)
             .required(FormErrorMessages.REQUIRED),
         })}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={(values, { setSubmitting, resetForm }) => {
           dispatch(registerAction(values));
-          setSubmitting(false);
+          setSubmitting(true);
+          resetForm();
         }}
       >
         {({ isValid, dirty }) => (

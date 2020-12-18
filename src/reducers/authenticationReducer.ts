@@ -1,5 +1,6 @@
 import {
   AuthenticationAction,
+  CLEAR_LOGIN_ERRORS,
   LOGIN_FAILURE,
   LOGIN_SUCCESSFUL,
   LOGOUT_SUCCESSFUL,
@@ -25,6 +26,8 @@ export const authenticationReducer = (
       return { ...state, currentUser: action.payload };
     case LOGIN_FAILURE:
       return { ...state, error: action.payload };
+    case CLEAR_LOGIN_ERRORS:
+      return { ...state, error: initialState.error };
     case LOGOUT_SUCCESSFUL:
       return { ...initialState };
     default:
