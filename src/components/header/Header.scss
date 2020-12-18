@@ -1,7 +1,7 @@
 @import '../../base';
 
 .header-container {
-  min-height: 10vh;
+  min-height: 8vh;
   width: 100%;
   position: fixed;
   top: 0;
@@ -12,8 +12,8 @@
   justify-content: space-between;
 }
 
-.borderless-header-button {
-  @include borderlessButton();
+.header-link {
+  @include link();
 }
 
 .title {
@@ -21,6 +21,7 @@
   font-size: 1.5em;
   color: white;
   margin-left: 5vw;
+  text-decoration: none;
 }
 
 .header-menu {

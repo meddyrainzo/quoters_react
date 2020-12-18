@@ -55,14 +55,5 @@
 }
 
 .second-option {
-  @include borderlessButton();
-}
-
-.forgotten {
-  @include borderlessButton();
-  font-style: italic;
-  text-decoration: underline;
-  margin-bottom: 3vh;
-  align-self: flex-end;
-  text-transform: initial;
+  @include link();
 }

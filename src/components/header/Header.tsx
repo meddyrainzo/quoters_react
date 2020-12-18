@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { UserState } from '../../reducers/loginReducer';
 import { nameAbbreviator } from '../../utils/nameInitialsCreator';
 import ProfileImage from '../profile/ProfileImage';
@@ -20,23 +21,27 @@ const Header: FC = () => {
         <>
           <button className='add-quote-button'>Add quote</button>
           <ProfileImage initials={initials} />
-          <button className='borderless-header-button'>Logout</button>
+          <button className='header-link'>Logout</button>
         </>
       );
     }
     return (
       <>
-        <button className='borderless-header-button'>Register</button>
-        <button className='borderless-header-button'>Sign in</button>
+        <Link className='header-link' to='/register'>
+          Register
+        </Link>
+        <Link className='header-link' to='/login'>
+          Sign in
+        </Link>
       </>
     );
   };
 
   return (
     <div className='header-container'>
-      <div className='title'>
-        <span>Quoters</span>
-      </div>
+      <Link className='title' to='/'>
+        Quoters
+      </Link>
       <div className='header-menu'>{createHeaderMenu()}</div>
     </div>
   );

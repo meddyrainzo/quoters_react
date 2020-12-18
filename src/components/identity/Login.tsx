@@ -8,6 +8,7 @@ import { LoginRequest } from '../../models/requests/loginRequest';
 import './Identity.scss';
 import { FormErrorMessages } from '../form/formErrorMessages';
 import TextField from '../form/TextField';
+import { Link } from 'react-router-dom';
 
 let request: LoginRequest = {
   email: '',
@@ -16,6 +17,7 @@ let request: LoginRequest = {
 
 const Login: FC = () => {
   const dispatch = useDispatch();
+  const { email, password } = request;
 
   return (
     <div className='form-page'>
@@ -36,14 +38,16 @@ const Login: FC = () => {
         {({ isValid, dirty }) => (
           <Form className='form'>
             <TextField
-              name='email'
-              type='email'
-              placeholder='Ex. test@mail.com'
               label='Email *'
+              placeholder='Ex. myemail@mail.com'
+              type='email'
+              value={email}
+              name='email'
             />
             <TextField
               name='password'
               type='password'
+              value={password}
               placeholder='Please enter your password'
               label='Password *'
             />
@@ -51,8 +55,10 @@ const Login: FC = () => {
               Sign in
             </button>
             <div>
-              Already have an account?
-              <button className='second-option'>Sign in</button>
+              Dont have an account?
+              <Link className='second-option' to='/register'>
+                Register
+              </Link>
             </div>
           </Form>
         )}

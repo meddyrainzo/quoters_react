@@ -5,13 +5,14 @@ $green: #389c0a;
 $red: #e64444;
 $disabled: #cac7c7;
 
-@mixin borderlessButton() {
+@mixin link() {
   background: none;
   border: none;
   padding: 0;
   margin-left: 2vw;
   text-align: center;
   text-transform: uppercase;
+  text-decoration: none;
   color: $light;
   font-size: 0.8em;
   cursor: pointer;

@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import './Identity.scss';
 import { FormErrorMessages } from '../form/formErrorMessages';
 import TextField from '../form/TextField';
+import { Link } from 'react-router-dom';
 
 const request: RegisterRequest = {
   firstname: '',
@@ -67,13 +68,13 @@ const Register: FC = () => {
             <TextField
               label='Email *'
               placeholder='Ex. myemail@mail.com'
-              type='text'
+              type='email'
               value={email}
               name='email'
             />
             <TextField
               label='Password *'
-              type='text'
+              type='password'
               value={password}
               placeholder='Please enter a strong password'
               name='password'
@@ -81,6 +82,12 @@ const Register: FC = () => {
             <button className='submit-button' disabled={!(isValid && dirty)}>
               Register user
             </button>
+            <div>
+              Already have an account?
+              <Link className='second-option' to='/login'>
+                Sign in
+              </Link>
+            </div>
           </Form>
         )}
       </Formik>
