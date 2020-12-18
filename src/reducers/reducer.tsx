@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import { loginReducer } from './loginReducer';
+import { authenticationReducer } from './authenticationReducer';
 import { quotesReducer } from './quotesReducer';
 import { registerReducer } from './registerReducer';
 
 export const rootReducer = combineReducers({
   quotes: quotesReducer,
   register: registerReducer,
-  currentUser: loginReducer,
+  currentUser: authenticationReducer,
 });
 
 export type Rootstate = ReturnType<typeof rootReducer>;

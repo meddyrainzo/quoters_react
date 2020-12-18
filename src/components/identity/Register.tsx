@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { registerAction } from '../../actions/registerActions';
 
 import { RegisterRequest } from '../../models/requests/regiterRequest';
@@ -9,6 +9,7 @@ import './Identity.scss';
 import { FormErrorMessages } from '../form/formErrorMessages';
 import TextField from '../form/TextField';
 import { Link } from 'react-router-dom';
+import { Rootstate } from '../../reducers/reducer';
 
 const request: RegisterRequest = {
   firstname: '',
@@ -19,11 +20,21 @@ const request: RegisterRequest = {
 
 const Register: FC = () => {
   const dispatch = useDispatch();
+  const error = useSelector((state: Rootstate) => state.register.error);
 
   const { firstname, lastname, email, password } = request;
 
+  const buildErrorAlert = () => {
+    const errorList = error?.errorReason.split(',');
+    const html = errorList?.map((err, index) => <span key={index}>{err}</span>);
+    return html;
+  };
+
   return (
     <div className='form-page'>
+      {error?.errorReason && (
+        <div className='identity-error-alert'>{buildErrorAlert()}</div>
+      )}
       <div className='identity-title'>Create Account</div>
       <Formik
         initialValues={request}

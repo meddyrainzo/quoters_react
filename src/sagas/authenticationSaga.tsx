@@ -3,8 +3,11 @@ import {
   LOGIN_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESSFUL,
-} from '../actions/loginActions';
-import { loginUser } from '../api/IdentityApi';
+  LOGOUT,
+  LOGOUT_SUCCESSFUL,
+} from '../actions/authenticationAction';
+import { history } from '../history';
+import { loginUser, logoutUser } from '../api/IdentityApi';
 import { LoginRequest } from '../models/requests/loginRequest';
 
 function* loginWorker(request: LoginRequest) {
@@ -14,12 +17,25 @@ function* loginWorker(request: LoginRequest) {
     yield put({ type: LOGIN_FAILURE, payload: error });
   } else {
     yield put({ type: LOGIN_SUCCESSFUL, payload: user });
+    history.push('/');
   }
+}
+
+function* logoutWorker() {
+  yield call(logoutUser);
+  yield put({ type: LOGOUT_SUCCESSFUL });
 }
 
 export function* loginWatcher() {
   while (true) {
     const { payload } = yield take(LOGIN_REQUEST);
     yield fork(loginWorker, payload);
+  }
+}
+
+export function* logoutWatcher() {
+  while (true) {
+    yield take(LOGOUT);
+    yield call(logoutWorker);
   }
 }

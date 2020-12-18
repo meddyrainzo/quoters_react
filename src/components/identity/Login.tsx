@@ -1,14 +1,16 @@
 import React, { FC } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
-import { loginUserAction } from '../../actions/loginActions';
+import { loginUserAction } from '../../actions/authenticationAction';
 import { LoginRequest } from '../../models/requests/loginRequest';
 
 import './Identity.scss';
 import { FormErrorMessages } from '../form/formErrorMessages';
 import TextField from '../form/TextField';
 import { Link } from 'react-router-dom';
+import { Rootstate } from '../../reducers/reducer';
+import Alert from '../alert/Alert';
 
 let request: LoginRequest = {
   email: '',
@@ -16,11 +18,21 @@ let request: LoginRequest = {
 };
 
 const Login: FC = () => {
+  const error = useSelector((state: Rootstate) => state.currentUser.error);
   const dispatch = useDispatch();
   const { email, password } = request;
 
+  const buildErrorAlert = () => {
+    const errorList = error?.errorReason.split(',');
+
+    const html = errorList?.map((err, index) => <span key={index}>{err}</span>);
+    return html;
+  };
+
   return (
     <div className='form-page'>
+      {error?.errorReason && <Alert message={error.errorReason} />}
+
       <div className='identity-title'>Sign in</div>
       <Formik
         initialValues={request}
@@ -30,12 +42,13 @@ const Login: FC = () => {
             .required(FormErrorMessages.REQUIRED),
           password: Yup.string().required(FormErrorMessages.REQUIRED),
         })}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={(values, { setSubmitting, resetForm }) => {
           dispatch(loginUserAction(values));
           setSubmitting(false);
+          resetForm();
         }}
       >
-        {({ isValid, dirty }) => (
+        {({ isValid, dirty, resetForm }) => (
           <Form className='form'>
             <TextField
               label='Email *'

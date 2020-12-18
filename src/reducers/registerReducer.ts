@@ -5,7 +5,7 @@ import {
 } from '../actions/registerActions';
 import { ErrorResult } from '../models/errorResult';
 
-type RegisterState = {
+export type RegisterState = {
   error?: ErrorResult;
 };
 
@@ -15,9 +15,8 @@ export const registerReducer = (
 ): RegisterState => {
   switch (action.type) {
     case REGISTRATION_FAILURE:
-      return { ...state, error: action.error };
+      return { error: action.error };
     case REGISTRATION_SUCCESSFUL:
-      return state;
     default:
       return state;
   }

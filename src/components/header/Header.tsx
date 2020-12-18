@@ -1,17 +1,25 @@
 import React, { FC } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { UserState } from '../../reducers/loginReducer';
+import { logoutUserAction } from '../../actions/authenticationAction';
+import { getCurrentUser } from '../../api/IdentityApi';
+import { Rootstate } from '../../reducers/reducer';
 import { nameAbbreviator } from '../../utils/nameInitialsCreator';
 import ProfileImage from '../profile/ProfileImage';
 
 import './Header.scss';
 
 const Header: FC = () => {
-  const currentUser = useSelector((state: UserState) => state.currentUser);
+  const currentUserFromStore = useSelector(
+    (state: Rootstate) => state.currentUser
+  );
+  const dispatch = useDispatch();
+  const currentUserFromLocalStorage = getCurrentUser();
 
   const createHeaderMenu = () => {
-    console.log(JSON.stringify(currentUser, null, 2));
+    const currentUser = currentUserFromStore.currentUser.email
+      ? currentUserFromStore.currentUser
+      : currentUserFromLocalStorage;
     if (currentUser.email) {
       const initials = nameAbbreviator(
         currentUser.firstname,
@@ -21,7 +29,12 @@ const Header: FC = () => {
         <>
           <button className='add-quote-button'>Add quote</button>
           <ProfileImage initials={initials} />
-          <button className='header-link'>Logout</button>
+          <button
+            className='header-link'
+            onClick={() => dispatch(logoutUserAction())}
+          >
+            Logout
+          </button>
         </>
       );
     }

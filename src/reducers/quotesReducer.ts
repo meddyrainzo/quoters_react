@@ -19,7 +19,7 @@ export const quotesReducer = (
 ): QuotesState => {
   switch (action.type) {
     case GET_QUOTES_SUCCESS:
-      return { ...state, quotes: [...state.quotes, ...action.payload.quotes] };
+      return { ...state, quotes: action.payload.quotes };
     case GET_QUOTES_FAILURE:
       return { ...state, error: action.payload };
     default:

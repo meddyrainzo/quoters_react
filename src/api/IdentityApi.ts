@@ -1,10 +1,9 @@
 import axios from 'axios';
 import qs from 'qs';
-import { Token } from '../aliases/token';
 import { ErrorResult } from '../models/errorResult';
-import { LoginUserResponse } from '../models/loginUserResponse';
 import { LoginRequest } from '../models/requests/loginRequest';
 import { RegisterRequest } from '../models/requests/regiterRequest';
+import { User } from '../models/user';
 
 const url = 'http://localhost:8080/identity/';
 
@@ -24,19 +23,33 @@ export const registerUser = async (
 
 export const loginUser = async (
   request: LoginRequest
-): Promise<LoginUserResponse | ErrorResult> => {
+): Promise<User | ErrorResult> => {
   try {
     const loginUrl = `${url}/login`;
     const config = {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     };
     const response = await axios.post(loginUrl, qs.stringify(request), config);
-    const { token, ...data } = response.data;
-    storeToken(token);
+    const data = response.data;
+    storeUserDetails(data);
     return data;
   } catch (err) {
     return err.response.data;
   }
 };
 
-const storeToken = async (token: Token) => localStorage.setItem('TOKEN', token);
+const storeUserDetails = (data: User) =>
+  localStorage.setItem('currentUser', JSON.stringify(data));
+
+export const getCurrentUser = (): User => {
+  const user = localStorage.getItem('currentUser');
+
+  if (user) {
+    return JSON.parse(user) as User;
+  }
+  return { firstname: '', lastname: '', email: '', token: '' };
+};
+
+export const logoutUser = () => {
+  localStorage.removeItem('currentUser');
+};

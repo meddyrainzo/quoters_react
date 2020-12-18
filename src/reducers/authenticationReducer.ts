@@ -1,8 +1,9 @@
 import {
-  LoginAction,
+  AuthenticationAction,
   LOGIN_FAILURE,
   LOGIN_SUCCESSFUL,
-} from '../actions/loginActions';
+  LOGOUT_SUCCESSFUL,
+} from '../actions/authenticationAction';
 import { ErrorResult } from '../models/errorResult';
 import { User } from '../models/user';
 
@@ -12,18 +13,20 @@ export type UserState = {
 };
 
 const initialState: UserState = {
-  currentUser: { firstname: '', lastname: '', email: '' },
+  currentUser: { firstname: '', lastname: '', email: '', token: '' },
 };
 
-export const loginReducer = (
+export const authenticationReducer = (
   state: UserState = initialState,
-  action: LoginAction
-) => {
+  action: AuthenticationAction
+): UserState => {
   switch (action.type) {
     case LOGIN_SUCCESSFUL:
-      return { ...state, ...action.payload };
+      return { ...state, currentUser: action.payload };
     case LOGIN_FAILURE:
       return { ...state, error: action.payload };
+    case LOGOUT_SUCCESSFUL:
+      return { ...initialState };
     default:
       return state;
   }

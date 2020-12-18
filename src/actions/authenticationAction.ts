@@ -5,6 +5,16 @@ import { User } from '../models/user';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESSFUL = 'LOGIN_SUCCESSFUL';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+export const LOGOUT = 'LOGOUT';
+export const LOGOUT_SUCCESSFUL = 'LOGOUT_SUCCESSFUL';
+
+export type LogoutUser = {
+  type: typeof LOGOUT;
+};
+
+export type LogoutSuccesful = {
+  type: typeof LOGOUT_SUCCESSFUL;
+};
 
 type LoginUserAction = {
   type: typeof LOGIN_REQUEST;
@@ -26,4 +36,11 @@ export const loginUserAction = (request: LoginRequest): LoginUserAction => {
   return { type: LOGIN_REQUEST, payload: request };
 };
 
-export type LoginAction = LoginSuccessful | LoginFailure;
+export const logoutUserAction = () => {
+  return { type: LOGOUT };
+};
+
+export type AuthenticationAction =
+  | LoginSuccessful
+  | LoginFailure
+  | LogoutSuccesful;

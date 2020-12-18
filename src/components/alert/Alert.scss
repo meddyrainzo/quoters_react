@@ -1,0 +1,27 @@
+@import '../../base';
+
+.alert {
+  display: flex;
+  flex-direction: column;
+  background-color: $red;
+  min-width: 12vw;
+  max-height: 40vh;
+  border: 1px solid $red;
+  border-radius: 4px;
+  margin-right: 6vw;
+  opacity: 85%;
+  color: $light;
+  padding: 1vh 1vw;
+  font-size: 0.9em;
+  text-align: center;
+  li {
+    list-style-type: none;
+  }
+}
+
+.close-icon {
+  float: left;
+  margin-bottom: 0.4vh;
+  color: $light;
+  cursor: pointer;
+}

@@ -6,14 +6,18 @@ import {
 } from '../actions/registerActions';
 import { RegisterRequest } from '../models/requests/regiterRequest';
 import { registerUser } from '../api/IdentityApi';
+import { history } from '../history';
 
 function* registrationWorker(request: RegisterRequest) {
-  const { errorReason, status } = yield call(registerUser, request);
-  if (errorReason) {
+  const registrationError = yield call(registerUser, request);
+
+  if (registrationError) {
+    const { status, errorReason } = registrationError;
     const error = { statusCode: status, errorReason };
     yield put({ type: REGISTRATION_FAILURE, error });
   } else {
     yield put({ type: REGISTRATION_SUCCESSFUL });
+    history.push('/login');
   }
 }
 
