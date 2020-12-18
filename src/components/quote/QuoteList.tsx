@@ -14,8 +14,14 @@ const QuoteList: FC = () => {
     dispatch(getQuotesAction(0, 2));
   }, [dispatch]);
 
-  const createQuotes = () =>
-    quotes.map((q: SingleQuote) => {
+  const createQuotes = () => {
+    if (!quotes) {
+      const noQuotes =
+        'There are currently no quotes. Please register and sign in to add quotes';
+      return <div className='no-quotes'>{noQuotes}</div>;
+    }
+
+    return quotes.map((q: SingleQuote) => {
       const {
         id,
         quote,
@@ -40,8 +46,9 @@ const QuoteList: FC = () => {
         />
       );
     });
+  };
 
-  return <div className='quote-list'>{quotes && createQuotes()}</div>;
+  return <div className='quote-list'>{createQuotes()}</div>;
 };
 
 export default QuoteList;
