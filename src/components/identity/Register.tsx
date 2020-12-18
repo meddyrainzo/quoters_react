@@ -1,20 +1,15 @@
-import React, { ChangeEvent, FocusEvent, FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { registerAction } from '../../actions/registerActions';
 
 import { RegisterRequest } from '../../models/requests/regiterRequest';
-import { emailValidator, wordValidator } from '../../utils/verifiers/verifier';
-
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 import './Identity.scss';
+import { FormErrorMessages } from '../form/formErrorMessages';
+import TextField from '../form/TextField';
 
-let initialRequest: RegisterRequest = {
-  firstname: '',
-  lastname: '',
-  email: '',
-  password: '',
-};
-
-let initialErrors = {
+const request: RegisterRequest = {
   firstname: '',
   lastname: '',
   email: '',
@@ -22,101 +17,73 @@ let initialErrors = {
 };
 
 const Register: FC = () => {
-  const [request, setRequest] = useState(initialRequest);
-  const [errors, setErrors] = useState(initialErrors);
   const dispatch = useDispatch();
 
   const { firstname, lastname, email, password } = request;
 
-  const onValueChanged = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setRequest({ ...request, [name]: value });
-  };
-
-  const validateEmail = (event: FocusEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setErrors({ ...errors, [name]: emailValidator(value) });
-  };
-
-  const validateWord = (event: FocusEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setErrors({ ...errors, [name]: wordValidator(name, value) });
-  };
-
   return (
     <div className='form-page'>
-      <div className='identity-title'>Create account</div>
-      <div className='form'>
-        <label htmlFor='email' className='input-label'>
-          First name *
-        </label>
-        <input
-          type='text'
-          value={firstname}
-          name='firstname'
-          onChange={onValueChanged}
-          onBlur={validateWord}
-          className='text-field'
-          placeholder='Please enter your first name'
-        />
-        {errors.firstname && (
-          <span className='error-label'>{errors.firstname}</span>
+      <div className='identity-title'>Create Account</div>
+      <Formik
+        initialValues={request}
+        validationSchema={Yup.object({
+          firstname: Yup.string()
+            .required(FormErrorMessages.REQUIRED)
+            .min(1, FormErrorMessages.NAME_TOO_SHORT)
+            .max(25, FormErrorMessages.NAME_TOO_LONG),
+          lastname: Yup.string()
+            .min(1, FormErrorMessages.NAME_TOO_SHORT)
+            .max(25, FormErrorMessages.NAME_TOO_LONG)
+            .required(FormErrorMessages.REQUIRED),
+          email: Yup.string()
+            .email(FormErrorMessages.EMAIL)
+            .required(FormErrorMessages.REQUIRED),
+          password: Yup.string()
+            .min(6, FormErrorMessages.PASSWORD_TOO_SHORT)
+            .max(50, FormErrorMessages.PASSWORD_TOO_LONG)
+            .required(FormErrorMessages.REQUIRED),
+        })}
+        onSubmit={(values, { setSubmitting }) => {
+          dispatch(registerAction(values));
+          setSubmitting(false);
+        }}
+      >
+        {({ isValid, dirty }) => (
+          <Form className='form'>
+            <TextField
+              label='First name *'
+              type='text'
+              value={firstname}
+              placeholder='Ex. Jane'
+              name='firstname'
+            />
+            <TextField
+              label='Last name *'
+              type='text'
+              value={lastname}
+              placeholder='Ex. Doe'
+              name='lastname'
+            />
+            <TextField
+              label='Email *'
+              placeholder='Ex. myemail@mail.com'
+              type='text'
+              value={email}
+              name='email'
+            />
+            <TextField
+              label='Password *'
+              type='text'
+              value={password}
+              placeholder='Please enter a strong password'
+              name='password'
+            />
+            <button className='submit-button' disabled={!(isValid && dirty)}>
+              Register user
+            </button>
+          </Form>
         )}
-        <label htmlFor='email' className='input-label'>
-          Last name *
-        </label>
-        <input
-          type='text'
-          value={lastname}
-          name='lastname'
-          onChange={onValueChanged}
-          onBlur={validateWord}
-          className='text-field'
-          placeholder='Please enter your last name'
-        />
-        {errors.lastname && (
-          <span className='error-label'>{errors.lastname}</span>
-        )}
-        <label htmlFor='email' className='input-label'>
-          Email *
-        </label>
-        <input
-          type='email'
-          value={email}
-          name='email'
-          onChange={onValueChanged}
-          onBlur={validateEmail}
-          className='text-field'
-          placeholder='Please enter your email'
-        />
-        {errors.email && <span className='error-label'>{errors.email}</span>}
-        <label htmlFor='email' className='input-label'>
-          Password *
-        </label>
-        <input
-          type='password'
-          value={password}
-          name='password'
-          onChange={onValueChanged}
-          onBlur={validateWord}
-          className='text-field'
-          placeholder='Please create your password'
-        />
-        {errors.password && (
-          <span className='error-label'>{errors.password}</span>
-        )}
-        <button
-          className='submit-button'
-          onClick={() => dispatch(registerAction(request))}
-        >
-          Register user
-        </button>
-
-        <div>
-          Already have an account?
-          <button className='second-option'>Sign in</button>
-        </div>
-      </div>
+      </Formik>
     </div>
   );
 };

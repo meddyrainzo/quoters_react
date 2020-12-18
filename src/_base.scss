@@ -3,6 +3,7 @@ $dark: #494747;
 $background-dark: #1b1b1b;
 $green: #389c0a;
 $red: #e64444;
+$disabled: #cac7c7;
 
 @mixin borderlessButton() {
   background: none;
@@ -12,6 +13,16 @@ $red: #e64444;
   text-transform: uppercase;
   color: $light;
   font-size: 0.8em;
+  cursor: pointer;
+}
+
+@mixin button($padding, $backgroundColor) {
+  background-color: $backgroundColor;
+  border: 1px solid $backgroundColor;
+  text-transform: uppercase;
+  border-radius: 4px;
+  color: $light;
+  padding: $padding;
   cursor: pointer;
 }
 

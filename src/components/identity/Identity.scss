@@ -41,17 +41,16 @@
 }
 
 .submit-button {
-  padding: 1.2em 12em;
-  border: 1px solid $green;
-  background-color: $green;
-  border-radius: 4px;
-  color: $light;
-  text-transform: uppercase;
-  cursor: pointer;
+  @include button(1.2em 12em, $green);
   margin-bottom: 2vh;
 
   &:hover {
     opacity: 80%;
+  }
+  &:disabled {
+    background-color: $disabled;
+    cursor: not-allowed;
+    border-color: $disabled;
   }
 }
 
