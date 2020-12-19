@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getQuotesAction } from '../../actions/quoteActions';
 import { getCurrentUser } from '../../api/IdentityApi';
@@ -10,9 +10,15 @@ import './QuoteList.scss';
 
 const QuoteList: FC = () => {
   const quotes = useSelector((state: Rootstate) => state.quotes.quotes);
-  const currentUser = getCurrentUser();
+  const currentUserFromStore = useSelector(
+    (state: Rootstate) => state.currentUser.currentUser
+  );
+  const [currentUser] = useState(
+    currentUserFromStore.email ? currentUserFromStore : getCurrentUser()
+  );
   const dispatch = useDispatch();
   useEffect(() => {
+    console.log(currentUser);
     dispatch(getQuotesAction(currentUser, 0, 2));
   }, [dispatch, currentUser]);
 
