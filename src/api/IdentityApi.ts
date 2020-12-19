@@ -47,7 +47,7 @@ export const getCurrentUser = (): User => {
   if (user) {
     return JSON.parse(user) as User;
   }
-  return { firstname: '', lastname: '', email: '', token: '' };
+  return { id: '', firstname: '', lastname: '', email: '', token: '' };
 };
 
 export const logoutUser = () => {

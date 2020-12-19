@@ -25,10 +25,6 @@ const Alert: FC<AlertProps> = ({ message, close }) => {
     return html;
   };
 
-  // const closeIcon = () => {
-  //   setVisible(false);
-  // };
-
   return (
     <>
       {isVisible && (

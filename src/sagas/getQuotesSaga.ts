@@ -5,10 +5,16 @@ import {
   GET_QUOTES_SUCCESS,
 } from '../actions/quoteActions';
 import * as service from '../api/QuotesApi';
+import { User } from '../models/user';
 
-function* getQuotes(currentPage?: number, resultsPerPage?: number) {
+function* getQuotes(
+  currentUser?: User,
+  currentPage?: number,
+  resultsPerPage?: number
+) {
   const { errorReason, status, ...quotes } = yield call(
     service.getQuotes,
+    currentUser,
     currentPage,
     resultsPerPage
   );
@@ -22,7 +28,7 @@ function* getQuotes(currentPage?: number, resultsPerPage?: number) {
 export function* watchGetQuotes() {
   while (true) {
     const { payload } = yield take(GET_QUOTES);
-    const { currentPage, resultsPerPage } = payload;
-    yield call(getQuotes, currentPage, resultsPerPage);
+    const { currentUser, currentPage, resultsPerPage } = payload;
+    yield call(getQuotes, currentUser, currentPage, resultsPerPage);
   }
 }

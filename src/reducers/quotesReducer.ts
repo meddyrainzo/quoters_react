@@ -2,6 +2,7 @@ import {
   GET_QUOTES_FAILURE,
   GET_QUOTES_SUCCESS,
   QuoteActionTypes,
+  REACT_TO_QUOTE_SUCCESS,
 } from '../actions/quoteActions';
 import { ErrorResult } from '../models/errorResult';
 import { SingleQuote } from '../models/singleQuote';
@@ -22,6 +23,22 @@ export const quotesReducer = (
       return { ...state, quotes: action.payload.quotes };
     case GET_QUOTES_FAILURE:
       return { ...state, error: action.payload };
+    case REACT_TO_QUOTE_SUCCESS:
+      return {
+        ...state,
+        quotes: state.quotes.map((quote) => {
+          if (quote.id === action.quoteId) {
+            return {
+              ...quote,
+              likedByYou: !quote.likedByYou,
+              likesCount: quote.likedByYou
+                ? quote.likesCount - 1
+                : quote.likesCount + 1,
+            };
+          }
+          return quote;
+        }),
+      };
     default:
       return state;
   }

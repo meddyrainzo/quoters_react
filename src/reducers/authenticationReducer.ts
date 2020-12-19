@@ -14,7 +14,7 @@ export type UserState = {
 };
 
 const initialState: UserState = {
-  currentUser: { firstname: '', lastname: '', email: '', token: '' },
+  currentUser: { id: '', firstname: '', lastname: '', email: '', token: '' },
 };
 
 export const authenticationReducer = (
