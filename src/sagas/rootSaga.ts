@@ -1,6 +1,7 @@
 import { all } from 'redux-saga/effects';
 import { loginWatcher, logoutWatcher } from './authenticationSaga';
-import { watchGetQuotes } from './quotesSaga';
+import { watchGetQuotes } from './getQuotesSaga';
+import { reactToQuoteWatcher } from './reactToQuoteSaga';
 import { registrationWatcher } from './registerSaga';
 
 export default function* rootSaga() {
@@ -9,5 +10,6 @@ export default function* rootSaga() {
     registrationWatcher(),
     loginWatcher(),
     logoutWatcher(),
+    reactToQuoteWatcher(),
   ]);
 }

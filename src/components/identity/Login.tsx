@@ -49,7 +49,7 @@ const Login: FC = () => {
           resetForm();
         }}
       >
-        {({ isValid, dirty, resetForm }) => (
+        {({ isValid, dirty }) => (
           <Form className='form'>
             <TextField
               label='Email *'
