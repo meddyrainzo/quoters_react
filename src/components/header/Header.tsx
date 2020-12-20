@@ -26,10 +26,6 @@ const Header: FC = () => {
     setShow(true);
   };
 
-  const handleSubmitFromModel = () => {
-    console.log('We will post');
-  };
-
   const createHeaderMenu = () => {
     const currentUser = currentUserFromStore.currentUser.email
       ? currentUserFromStore.currentUser
@@ -71,11 +67,7 @@ const Header: FC = () => {
       <Link className='title' to='/'>
         Quoters
       </Link>
-      <Modal
-        show={show}
-        OnClose={handleClose}
-        OnSubmit={handleSubmitFromModel}
-      />
+      <Modal show={show} OnClose={handleClose} />
       <div className='header-menu'>{createHeaderMenu()}</div>
     </div>
   );

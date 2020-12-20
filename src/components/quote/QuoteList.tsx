@@ -42,7 +42,7 @@ const QuoteList: FC = () => {
       } = q;
       return (
         <Quote
-          key={id}
+          key={`id-${id}`}
           id={id}
           quote={quote}
           author={author}

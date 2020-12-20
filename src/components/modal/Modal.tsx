@@ -2,13 +2,15 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import WriteAQuoteRequest from '../../models/requests/writeAQuoteRequest';
 
 import './Modal.scss';
 import { WriteAQuoteErrors } from '../quote/WriteAQuoteErrors';
 import TextArea from '../form/TextArea';
 import TextField from '../form/TextField';
+import { writeAQuoteAction } from '../../actions/quoteActions';
+import { useDispatch } from 'react-redux';
 
 const request: WriteAQuoteRequest = {
   quote: '',
@@ -18,11 +20,19 @@ const request: WriteAQuoteRequest = {
 type ModelProps = {
   show: boolean;
   OnClose: () => void;
-  OnSubmit: () => void;
 };
 
 const Modal: FC<ModelProps> = (props) => {
-  const modalClassName = props.show ? 'modal' : 'hide-modal';
+  const [modalClassName, setModalClassName] = useState(
+    props.show ? 'modal' : 'hide-modal'
+  );
+  const dispatch = useDispatch();
+
+  const handleSubmit = () => {
+    dispatch(writeAQuoteAction(request));
+    setModalClassName('hide-modal');
+  };
+
   return (
     <div className={modalClassName}>
       <div className='modal-content'>
@@ -63,7 +73,7 @@ const Modal: FC<ModelProps> = (props) => {
                 <button
                   className='submit-modal'
                   disabled={!(isValid && dirty)}
-                  onClick={props.OnSubmit}
+                  onClick={handleSubmit}
                 >
                   Create quote
                 </button>

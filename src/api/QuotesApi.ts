@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ErrorResult } from '../models/errorResult';
+import WriteAQuoteRequest from '../models/requests/writeAQuoteRequest';
 import { SingleQuote } from '../models/singleQuote';
 import { User } from '../models/user';
 import { getCurrentUser } from './IdentityApi';
@@ -45,6 +46,18 @@ export const reactToQuote = async (
         },
       }
     );
+  } catch (err) {
+    return err.response.data;
+  }
+};
+
+export const writeAQuote = async (request: WriteAQuoteRequest) => {
+  const user = getCurrentUser();
+  try {
+    const quote = await client.post(baseURL, request, {
+      headers: { 'x-auth-token': user.token },
+    });
+    return quote.data;
   } catch (err) {
     return err.response.data;
   }
