@@ -1,10 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logoutUserAction } from '../../actions/authenticationAction';
 import { getCurrentUser } from '../../api/IdentityApi';
 import { Rootstate } from '../../reducers/reducer';
 import { nameAbbreviator } from '../../utils/nameInitialsCreator';
+import Modal from '../modal/Modal';
 import ProfileImage from '../profile/ProfileImage';
 
 import './Header.scss';
@@ -15,6 +16,19 @@ const Header: FC = () => {
   );
   const dispatch = useDispatch();
   const currentUserFromLocalStorage = getCurrentUser();
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => {
+    setShow(false);
+  };
+
+  const handleShowModal = () => {
+    setShow(true);
+  };
+
+  const handleSubmitFromModel = () => {
+    console.log('We will post');
+  };
 
   const createHeaderMenu = () => {
     const currentUser = currentUserFromStore.currentUser.email
@@ -27,7 +41,9 @@ const Header: FC = () => {
       );
       return (
         <>
-          <button className='add-quote-button'>Add quote</button>
+          <button className='add-quote-button' onClick={handleShowModal}>
+            Add quote
+          </button>
           <ProfileImage initials={initials} />
           <button
             className='header-link'
@@ -55,6 +71,11 @@ const Header: FC = () => {
       <Link className='title' to='/'>
         Quoters
       </Link>
+      <Modal
+        show={show}
+        OnClose={handleClose}
+        OnSubmit={handleSubmitFromModel}
+      />
       <div className='header-menu'>{createHeaderMenu()}</div>
     </div>
   );

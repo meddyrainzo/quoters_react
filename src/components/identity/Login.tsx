@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
@@ -14,6 +14,8 @@ import TextField from '../form/TextField';
 import { Link } from 'react-router-dom';
 import { Rootstate } from '../../reducers/reducer';
 import Alert from '../alert/Alert';
+import { getCurrentUser } from '../../api/IdentityApi';
+import { history } from '../../history';
 
 let request: LoginRequest = {
   email: '',
@@ -21,9 +23,16 @@ let request: LoginRequest = {
 };
 
 const Login: FC = () => {
-  const error = useSelector((state: Rootstate) => state.currentUser.error);
+  const user = useSelector((state: Rootstate) => state.currentUser);
   const dispatch = useDispatch();
   const { email, password } = request;
+  const { currentUser, error } = user;
+
+  useEffect(() => {
+    if (getCurrentUser().email || currentUser.email) {
+      history.push('/');
+    }
+  }, [currentUser]);
 
   return (
     <div className='form-page'>

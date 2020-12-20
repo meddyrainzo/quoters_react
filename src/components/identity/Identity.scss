@@ -41,23 +41,6 @@
   width: 36vw;
 }
 
-.text-field {
-  width: 100%;
-  min-height: 2vh;
-  border-style: none;
-  border: 1px solid $light;
-  border-radius: 4px;
-  margin-bottom: 2vh;
-  padding: 1.2em 0.8em;
-  background-color: $dark;
-  color: $light;
-
-  &:focus {
-    outline: none;
-    border: 2px solid white;
-  }
-}
-
 .submit-button {
   @include button(1.2em 12em, $green);
   margin-bottom: 2vh;

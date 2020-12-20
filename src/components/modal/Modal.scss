@@ -1,0 +1,60 @@
+@import '../../base';
+
+.hide-modal {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.6);
+  align-items: center;
+  justify-content: center;
+
+  &-close {
+    cursor: pointer;
+  }
+
+  &-content {
+    min-width: 40vw;
+    min-height: 40vh;
+    background-color: #000000;
+    border: 1px solid $dark;
+    border-radius: 4px;
+  }
+
+  &-header {
+    color: $light;
+    display: flex;
+    align-items: center;
+    padding: 1em;
+    border-bottom: 1px solid $dark;
+  }
+
+  &-header-title {
+    margin-left: 1em;
+  }
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: $light;
+    padding: 1em 2em;
+  }
+}
+
+.submit-modal {
+  align-self: flex-end;
+  color: $light;
+  background-color: $green;
+  padding: 1em 3.5em;
+  border: 1px solid $green;
+  border-radius: 4px;
+  cursor: pointer;
+}

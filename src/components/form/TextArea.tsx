@@ -3,23 +3,15 @@ import { useField, FieldHookConfig } from 'formik';
 
 import './Form.scss';
 
-type TextFieldProps = FieldHookConfig<string> & {
-  label: string;
-};
-
-const TextField: FC<TextFieldProps> = (props) => {
+const TextArea: FC<FieldHookConfig<string>> = (props) => {
   const [field, meta] = useField(props);
 
   return (
     <>
-      <label htmlFor={props.id || props.name} className='input-label'>
-        {props.label}
-      </label>
-      <input
-        className='text-field'
+      <textarea
+        className='text-area'
         {...field}
         placeholder={props.placeholder}
-        type={props.type}
         name={props.name}
       />
       {meta.touched && meta.error && (
@@ -29,4 +21,4 @@ const TextField: FC<TextFieldProps> = (props) => {
   );
 };
 
-export default TextField;
+export default TextArea;
