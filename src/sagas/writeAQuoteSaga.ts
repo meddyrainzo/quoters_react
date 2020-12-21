@@ -14,10 +14,10 @@ export function* writeAQuoteWatcher() {
 
 function* writeAQuoteWorker(request: WriteAQuoteRequest) {
   const { status, errorReason, ...quote } = yield call(writeAQuote, request);
-  if (quote) {
-    yield put({ type: WRITE_A_QUOTE_SUCCESS, payload: quote });
-  } else {
+  if (errorReason) {
     const error = { statusCode: status, errorReason };
     yield put({ type: WRITE_A_QUOTE_FAILURE, payload: error });
+  } else {
+    yield put({ type: WRITE_A_QUOTE_SUCCESS, payload: quote });
   }
 }

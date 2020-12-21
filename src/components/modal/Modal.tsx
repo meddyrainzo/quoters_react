@@ -2,7 +2,7 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import WriteAQuoteRequest from '../../models/requests/writeAQuoteRequest';
 
 import './Modal.scss';
@@ -20,18 +20,14 @@ const request: WriteAQuoteRequest = {
 type ModelProps = {
   show: boolean;
   OnClose: () => void;
+  OnSubmit: () => void;
 };
 
 const Modal: FC<ModelProps> = (props) => {
-  const [modalClassName, setModalClassName] = useState(
-    props.show ? 'modal' : 'hide-modal'
-  );
-  const dispatch = useDispatch();
+  let modalClassName = props.show ? 'modal' : 'hide-modal';
 
-  const handleSubmit = () => {
-    dispatch(writeAQuoteAction(request));
-    setModalClassName('hide-modal');
-  };
+  const { quote, author } = request;
+  const dispatch = useDispatch();
 
   return (
     <div className={modalClassName}>
@@ -58,7 +54,8 @@ const Modal: FC<ModelProps> = (props) => {
                 .required(WriteAQuoteErrors.REQUIRED),
             })}
             onSubmit={(values, { resetForm, setSubmitting }) => {
-              // dispatch creating the quote
+              props.OnSubmit();
+              dispatch(writeAQuoteAction(request));
               setSubmitting(true);
               resetForm();
             }}
@@ -67,14 +64,16 @@ const Modal: FC<ModelProps> = (props) => {
               <Form className='modal-form'>
                 <TextArea
                   name='quote'
+                  value={quote}
                   placeholder='Please write your quote here...'
                 />
-                <TextField label='Author' name='author' type='text' />
-                <button
-                  className='submit-modal'
-                  disabled={!(isValid && dirty)}
-                  onClick={handleSubmit}
-                >
+                <TextField
+                  label='Author'
+                  value={author}
+                  name='author'
+                  type='text'
+                />
+                <button className='submit-modal' disabled={!(isValid && dirty)}>
                   Create quote
                 </button>
               </Form>

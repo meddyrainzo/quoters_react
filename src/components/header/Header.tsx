@@ -67,7 +67,7 @@ const Header: FC = () => {
       <Link className='title' to='/'>
         Quoters
       </Link>
-      <Modal show={show} OnClose={handleClose} />
+      <Modal show={show} OnClose={handleClose} OnSubmit={handleClose} />
       <div className='header-menu'>{createHeaderMenu()}</div>
     </div>
   );

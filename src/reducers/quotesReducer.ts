@@ -26,10 +26,7 @@ export const quotesReducer = (
     case GET_QUOTES_FAILURE:
       return { ...state, error: action.payload };
     case WRITE_A_QUOTE_SUCCESS:
-      console.log(
-        `Successfully wrote the quote ${JSON.stringify(action.payload)}`
-      );
-      return { ...state, quotes: [action.payload, ...state.quotes] };
+      return { ...state, quotes: [action.payload, ...state.quotes].reverse() };
     case WRITE_A_QUOTE_FAILURE:
       return { ...state, error: action.payload };
     case REACT_TO_QUOTE_SUCCESS:

@@ -18,8 +18,7 @@ const QuoteList: FC = () => {
   );
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(currentUser);
-    dispatch(getQuotesAction(currentUser, 0, 2));
+    dispatch(getQuotesAction(currentUser, 0, 6));
   }, [dispatch, currentUser]);
 
   const createQuotes = () => {
