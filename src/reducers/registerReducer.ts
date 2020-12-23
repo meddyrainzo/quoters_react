@@ -20,8 +20,8 @@ export const registerReducer = (
     case REGISTRATION_FAILURE:
       return { error: action.error };
     case CLEAR_REGISTRATION_ERRORS:
-      return { ...state, error: initialState.error };
     case REGISTRATION_SUCCESSFUL:
+      return initialState;
     default:
       return state;
   }

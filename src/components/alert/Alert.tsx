@@ -21,7 +21,15 @@ const Alert: FC<AlertProps> = ({ message, close }) => {
   const buildAlert = () => {
     const messages = message.split(',');
 
-    const html = messages?.map((err, index) => <span key={index}>{err}</span>);
+    const html = (
+      <ul>
+        {messages?.map((err, index) => (
+          <li key={`id-${index}`}>
+            <span>{err}</span>
+          </li>
+        ))}
+      </ul>
+    );
     return html;
   };
 

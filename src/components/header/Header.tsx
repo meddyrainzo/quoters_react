@@ -1,9 +1,8 @@
 import React, { FC, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logoutUserAction } from '../../actions/authenticationAction';
 import { getCurrentUser } from '../../api/IdentityApi';
-import { Rootstate } from '../../reducers/reducer';
 import { nameAbbreviator } from '../../utils/nameInitialsCreator';
 import Modal from '../modal/Modal';
 import ProfileImage from '../profile/ProfileImage';
@@ -11,11 +10,7 @@ import ProfileImage from '../profile/ProfileImage';
 import './Header.scss';
 
 const Header: FC = () => {
-  const currentUserFromStore = useSelector(
-    (state: Rootstate) => state.currentUser
-  );
   const dispatch = useDispatch();
-  const currentUserFromLocalStorage = getCurrentUser();
   const [show, setShow] = useState(false);
 
   const handleClose = () => {
@@ -27,9 +22,7 @@ const Header: FC = () => {
   };
 
   const createHeaderMenu = () => {
-    const currentUser = currentUserFromStore.currentUser.email
-      ? currentUserFromStore.currentUser
-      : currentUserFromLocalStorage;
+    const currentUser = getCurrentUser();
     if (currentUser.email) {
       const initials = nameAbbreviator(
         currentUser.firstname,
