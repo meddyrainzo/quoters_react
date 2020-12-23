@@ -18,7 +18,6 @@ export function* writeAQuoteWorker(request: WriteAQuoteRequest) {
     const error = { statusCode: status, errorReason };
     yield put({ type: WRITE_A_QUOTE_FAILURE, payload: error });
   } else {
-    console.log('We in the house');
     yield put({ type: WRITE_A_QUOTE_SUCCESS, payload: quote });
   }
 }
