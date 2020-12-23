@@ -6,7 +6,7 @@ import {
 } from '../actions/quoteActions';
 import { reactToQuote } from '../api/QuotesApi';
 
-function* reactToQuoteWorker({
+export function* reactToQuoteWorker({
   quoteId,
 }: ReturnType<typeof reactToQuoteAction>) {
   const result = yield call(reactToQuote, quoteId);

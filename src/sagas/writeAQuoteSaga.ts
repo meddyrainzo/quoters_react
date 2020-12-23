@@ -12,12 +12,13 @@ export function* writeAQuoteWatcher() {
   yield call(writeAQuoteWorker, payload);
 }
 
-function* writeAQuoteWorker(request: WriteAQuoteRequest) {
+export function* writeAQuoteWorker(request: WriteAQuoteRequest) {
   const { status, errorReason, ...quote } = yield call(writeAQuote, request);
   if (errorReason) {
     const error = { statusCode: status, errorReason };
     yield put({ type: WRITE_A_QUOTE_FAILURE, payload: error });
   } else {
+    console.log('We in the house');
     yield put({ type: WRITE_A_QUOTE_SUCCESS, payload: quote });
   }
 }

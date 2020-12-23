@@ -8,7 +8,7 @@ import { RegisterRequest } from '../models/requests/regiterRequest';
 import { registerUser } from '../api/IdentityApi';
 import { history } from '../history';
 
-function* registrationWorker(request: RegisterRequest) {
+export function* registrationWorker(request: RegisterRequest) {
   const registrationError = yield call(registerUser, request);
 
   if (registrationError) {

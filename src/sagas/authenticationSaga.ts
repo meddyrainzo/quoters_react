@@ -10,18 +10,25 @@ import { history } from '../history';
 import { loginUser, logoutUser } from '../api/IdentityApi';
 import { LoginRequest } from '../models/requests/loginRequest';
 
-function* loginWorker(request: LoginRequest) {
+export function* loginWorker(request: LoginRequest) {
   const { errorReason, status, ...user } = yield call(loginUser, request);
-  if (errorReason) {
-    const error = { statusCode: status, errorReason };
-    yield put({ type: LOGIN_FAILURE, payload: error });
-  } else {
-    yield put({ type: LOGIN_SUCCESSFUL, payload: user });
-    history.push('/');
+  try {
+    if (errorReason) {
+      const error = { statusCode: status, errorReason };
+      yield put({ type: LOGIN_FAILURE, payload: error });
+    } else {
+      yield put({ type: LOGIN_SUCCESSFUL, payload: user });
+      history.push('/');
+    }
+  } catch (err) {
+    yield put({
+      type: LOGIN_FAILURE,
+      payload: { statusCode: 500, errorReason: err.message },
+    });
   }
 }
 
-function* logoutWorker() {
+export function* logoutWorker() {
   yield call(logoutUser);
   yield put({ type: LOGOUT_SUCCESSFUL });
 }
@@ -29,7 +36,7 @@ function* logoutWorker() {
 export function* loginWatcher() {
   while (true) {
     const { payload } = yield take(LOGIN_REQUEST);
-    yield fork(loginWorker, payload);
+    yield call(loginWorker, payload);
   }
 }
 

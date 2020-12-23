@@ -7,7 +7,7 @@ import {
 import * as service from '../api/QuotesApi';
 import { User } from '../models/user';
 
-function* getQuotes(
+export function* getQuotesWorker(
   currentUser?: User,
   currentPage?: number,
   resultsPerPage?: number
@@ -29,6 +29,6 @@ export function* watchGetQuotes() {
   while (true) {
     const { payload } = yield take(GET_QUOTES);
     const { currentUser, currentPage, resultsPerPage } = payload;
-    yield call(getQuotes, currentUser, currentPage, resultsPerPage);
+    yield call(getQuotesWorker, currentUser, currentPage, resultsPerPage);
   }
 }
